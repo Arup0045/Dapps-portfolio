@@ -1,0 +1,1257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Exper1ment DApp</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&family=Space+Grotesk:wght@400;600&display=swap"
+        rel="stylesheet">
+
+    <style>
+        body {
+            background: radial-gradient(circle at 20% 30%, #5c154d, #4f1ca8);
+            color: white;
+            overflow-x: hidden;
+            margin: 0;
+            font-family: 'Space Grotesk', sans-serif;
+
+        }
+
+        /* GLOW ORB 1 */
+        body::before {
+            content: "";
+            position: fixed;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, #22c55e33, transparent);
+            top: 10%;
+            left: 10%;
+            filter: blur(120px);
+            z-index: -1;
+        }
+
+        /* GLOW ORB 2 */
+        body::after {
+            content: "";
+            position: fixed;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, #3b82f633, transparent);
+            bottom: 10%;
+            right: 10%;
+            filter: blur(120px);
+            z-index: -1;
+        }
+
+        /* PARTICLES */
+        .particles {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .particles::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(#22c55e 1px, transparent 1px);
+            background-size: 40px 40px;
+            animation: moveParticles 20s linear infinite;
+            opacity: 0.3;
+        }
+
+        @keyframes moveParticles {
+            0% {
+                transform: translateY(0);
+            }
+
+            100% {
+                transform: translateY(-100px);
+            }
+        }
+
+        /* MOUSE GLOW */
+        .cursor-glow {
+            position: fixed;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(34, 197, 94, 0.25), transparent 70%);
+            pointer-events: none;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 0;
+        }
+
+        /* ===== FONT UPGRADE ===== */
+
+        /* HEADINGS */
+        h1,
+        h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 32px;
+            letter-spacing: 1px;
+        }
+
+        /* NAME BIG */
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 42px;
+            letter-spacing: 2px;
+
+            background: linear-gradient(90deg, #00ffcc, #00aaff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+
+            text-shadow: 0 0 20px #00ffcc, 0 0 40px #00aaff;
+        }
+
+        /* TEXT */
+        p {
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            line-height: 1.6;
+            color: #d1d5db;
+        }
+
+        /* ABOUT TEXT BIG */
+        .section p {
+            font-size: 18px;
+            max-width: 800px;
+        }
+
+        /* WALLET */
+        .wallet-screen {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .connect-btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(45deg, #22c55e, #3b82f6);
+            color: white;
+            cursor: pointer;
+        }
+
+        .wallet-note {
+            font-size: 13px;
+            opacity: 0.6;
+            margin-top: 10px;
+        }
+
+        /* APP */
+        .app {
+            display: none
+        }
+
+        /* HERO */
+        .hero {
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        .profile {
+            width: 110px;
+            border-radius: 50%;
+            border: 3px solid #22c55e;
+            margin-bottom: 10px;
+        }
+
+        .hero h1 {
+            font-size: 45px;
+            background: linear-gradient(90deg, #22c55e, #3b82f6);
+            -webkit-background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 20px #22c55e88;
+        }
+
+        /* SECTION */
+        .section {
+            padding: 40px;
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        /* GRID */
+        .grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        /* CARD */
+        .card {
+            width: 260px;
+            padding: 20px;
+            border-radius: 15px;
+            background: rgba(112, 50, 115, 0.841);
+            backdrop-filter: blur(10px);
+            transition: 0.4s;
+            text-align: center;
+
+            transform: none
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 0 20px #22c55e;
+        }
+
+        .card img {
+            width: 40px;
+            margin-bottom: 10px;
+        }
+
+        .btn {
+            margin-top: 10px;
+            padding: 6px 12px;
+            border: none;
+            background: #3b82f6;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        /* WIDE */
+        .wide {
+            width: 400px;
+            text-align: left;
+        }
+
+        /* COVER */
+        .cover img {
+            width: 100%;
+            height: 260px;
+            object-fit: cover;
+            object-position: center top;
+            /* 👈 IMPORTANT */
+            border-radius: 0 0 20px 20px;
+        }
+
+        /* HERO FIX */
+        .hero {
+            position: relative;
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        /* PROFILE OVERLAP */
+        .profile {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            border: 4px solid #0f172a;
+
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            top: 180px;
+
+            background: #000;
+        }
+
+        .profile {
+            box-shadow: 0 0 20px #00ffcc, 0 0 40px #00aaff;
+        }
+
+
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(6px);
+            z-index: 999999999;
+            /* 👈 sabse upar */
+            justify-content: center;
+            align-items: center;
+        }
+
+        .app {
+            position: relative z-index: 1;
+        }
+
+        /* Image container */
+        .modal-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+            animation: zoomIn 0.3s ease;
+        }
+
+        /* Image */
+        #proofImg {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 0 25px rgba(0, 255, 200, 0.4);
+        }
+
+        /* Close button */
+        .close-btn {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: #00ffcc;
+            color: black;
+            border: none;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        /* Animation */
+        @keyframes zoomIn {
+            from {
+                transform: scale(0.6);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* SCROLL */
+        .fade {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: 0.6s;
+        }
+
+        .fade.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        iframe {
+            border: none;
+            border-radius: 10px;
+        }
+
+        .cover img {
+            height: 180;
+        }
+
+        .profile {
+            width: 90px;
+            height: 90px;
+            ;
+            top: 140px;
+        }
+
+        h1 {
+            font-size: 22px;
+        }
+
+        h2 {
+            font-size: 22px;
+        }
+
+        .about-top {
+            font-size: 14px;
+            padding: 0 15px;
+        }
+
+        .grid {
+            grid-template-columns: 1fr;
+        }
+
+        /* CONTACT FIX */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .contact-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .card {
+            width: 100%;
+        }
+
+        .section {
+            padding: 20px;
+        }
+
+        /* TOOLS GRID FIX */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        /* WORK GRID FIX */
+        .work-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        /* MOBILE FIX */
+        @media (max-width: 768px) {
+
+            .tools-grid {
+                grid-template-columns: repeat(2, 1fr);
+                /* mobile pe 2 column */
+            }
+
+            .work-grid {
+                grid-template-columns: repeat(1, 1fr);
+                /* work 1 column (clean look) */
+            }
+
+        }
+
+        .card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            transform-style: preserve-3d;
+        }
+
+        .card:hover {
+            transform: rotateX(8deg) rotateY(8deg) scale(1.05);
+            box-shadow: 0 0 25px rgba(0, 255, 200, 0.4);
+
+            /* WALLET UI */
+            .connect-btn {
+                background: linear-gradient(45deg, #00ffcc, #00aaff);
+                border: none;
+                padding: 15px 30px;
+                border-radius: 12px;
+                color: white;
+                font-weight: bold;
+                cursor: pointer;
+                box-shadow: 0 0 20px rgba(0, 255, 200, 0.5);
+                transition: 0.3s;
+            }
+
+            .connect-btn:hover {
+                transform: scale(1.1);
+                box-shadow: 0 0 35px rgba(0, 255, 200, 0.9);
+            }
+
+            #wallet-status {
+                margin-top: 10px;
+                font-size: 14px;
+                color: #00ffcc;
+            }
+        }
+
+        /* PROFILE FIX */
+        .profile {
+            width: 140px;
+            /* size bada */
+            height: 140px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-top: -10px;
+            /* upar se niche lana */
+            border: 3px solid #00ffcc;
+            box-shadow: 0 0 25px #00ffcc;
+        }
+
+        /* NAME ANIMATION */
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 700;
+            background: linear-gradient(45deg, #00ffcc, #00aaff, #00ffcc);
+            -webkit-background-clip: text;
+            color: transparent;
+            animation: glowText 3s linear infinite;
+        }
+
+        @keyframes glowText {
+            0% {
+                text-shadow: 0 0 10px #00ffcc;
+            }
+
+            50% {
+                text-shadow: 0 0 25px #00aaff;
+            }
+
+            100% {
+                text-shadow: 0 0 10px #00ffcc;
+            }
+        }
+
+        .hero h1 {
+            letter-spacing: 2px;
+        }
+
+        .hero h1 {
+            font-size: 52px;
+            font-weight: 700;
+
+            background: linear-gradient(90deg,
+                    #00ffcc,
+                    #00aaff,
+                    #8a2be2,
+                    #00ffcc);
+
+            background-size: 300%;
+
+            -webkit-background-clip: text;
+            color: transparent;
+
+            animation: gradientMove 6s linear infinite,
+                glowPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes gradientMove {
+            0% {
+                background-position: 0%;
+            }
+
+            100% {
+                background-position: 300%;
+            }
+        }
+
+        @keyframes glowPulse {
+            0% {
+                text-shadow: 0 0 10px #00ffcc;
+            }
+
+            50% {
+                text-shadow: 0 0 30px #00aaff;
+            }
+
+            100% {
+                text-shadow: 0 0 10px #00ffcc;
+            }
+        }
+
+        .card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 0 30px #00ffcc55;
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #00ffcc, #00aaff);
+            border: none;
+            padding: 10px 20px;
+            color: white;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            box-shadow: 0 0 20px #00ffcc;
+            transform: scale(1.05);
+        }
+
+        .web3-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .web3-card {
+            padding: 20px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            text-align: center;
+            transition: 0.3s;
+            border: 1px solid rgba(0, 255, 204, 0.2);
+        }
+
+        .web3-card h3 {
+            color: #00ffcc;
+            margin-bottom: 10px;
+        }
+
+        .web3-card p {
+            font-size: 14px;
+            color: #ccc;
+        }
+
+        /* 🔥 HOVER */
+        .web3-card:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 0 30px #00ffcc66;
+            border: 1px solid #00ffcc;
+        }
+
+        .section h2 {
+            text-align: center;
+            background: linear-gradient(45deg, #00ffcc, #00aaff);
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .tool-logos {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+
+        .tool-logos img {
+            width: 22px;
+            height: 22px;
+            object-fit: contain;
+            opacity: 0.9;
+            transition: 0.3s;
+        }
+
+        .tool-logos img:hover {
+            transform: scale(1.2);
+            filter: drop-shadow(0 0 6px #00ffcc);
+        }
+
+        .proof-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .proof-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
+
+            background: rgba(0, 0, 0, 0.95);
+            padding: 20px;
+            border-radius: 16px;
+            box-shadow: 0 0 40px #00ffcc;
+
+            display: none;
+            z-index: 9999;
+
+            backdrop-filter: blur(10px);
+            animation: popupAnim 0.3s ease forwards;
+        }
+
+        @keyframes popupAnim {
+            to {
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+
+        /* mobile fix */
+        @media (max-width: 768px) {
+            .proof-img {
+                width: 200px;
+            }
+        }
+
+
+        /* arrow (optional pro look) */
+        .proof-popup::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 8px;
+            border-style: solid;
+            border-color: rgba(0, 0, 0, 0.9) transparent transparent transparent;
+
+            .modal {
+                position: fixed !important;
+                z-index: 9999999999 !important;
+            }
+        }
+
+
+        .card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 0 25px rgba(0, 255, 200, 0.4);
+        }
+
+        .proof-popup {
+            position: fixed !important;
+            z-index: 9999999999 !important;
+        }
+
+        .card,
+        .flip-inner {
+            transform: none !important;
+        }
+
+        #proofImg {
+            max-width: 90vw;
+            max-height: 90vh;
+            object-fit: contain;
+            display: block;
+            margin: auto;
+        }
+
+        #proofImg {
+            width: auto;
+            height: auto;
+
+            max-width: 95vw;
+            max-height: 90vh;
+
+            object-fit: contain;
+            display: block;
+            margin: auto;
+        }
+
+        .modal-content {
+            width: 100%;
+            height: 100%;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            max-width: 100vw !important;
+            max-height: 100vh !important;
+            width: 100% !important;
+            height: 100% !important;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #proofImg {
+            width: 90vw !important;
+            height: auto !important;
+            max-height: 90vh !important;
+            object-fit: contain;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="particles"></div>
+    <div class="cursor-glow"></div>
+
+    <!-- WALLET -->
+    <div class="wallet-screen">
+        <button class="connect-btn" onclick="connectWallet()">Connect Wallet</button>
+        <p class="wallet-note">Demo only. No real wallet required.</p>
+        <p id="wallet-status">Not connected</p>
+    </div>
+
+    <div class="app">
+
+        <!-- HERO -->
+        <div class="hero fade">
+
+            <!-- COVER IMAGE -->
+            <div class="cover">
+                <img src="cover.jpg">
+            </div>
+
+            <!-- PROFILE IMAGE -->
+            <img src="yourphoto.png" class="profile">
+
+            <h1>Exper1ment IN</h1>
+            <p id="typing"></p>
+            <p>Kolkata, India</p>
+
+        </div>
+
+        <!-- ABOUT -->
+        <div class="about-top">
+            <h2>About Me</h2>
+            <p>
+                A detail-oriented and self-driven Web3 professional with over three years of hands-on experience across
+                the crypto ecosystem, including community building, content strategy, and user engagement. Adept at
+                simplifying complex blockchain concepts into clear, engaging, and accessible content tailored for
+                diverse audiences across both written and video formats.
+                Proven track record of contributing to multiple Web3 projects as an ambassador and community advocate,
+                playing a key role in driving brand awareness, onboarding new users, and fostering active, value-driven
+                communities. Experienced in creating high-impact content that resonates with both beginners and
+                experienced users, helping bridge the gap between technical innovation and real-world understanding.
+                Strong understanding of emerging trends in decentralized technologies, combined with a proactive
+                approach to learning and adapting in a rapidly evolving industry. Passionate about leveraging content
+                and community as powerful tools to accelerate Web3 adoption and create meaningful user experiences.
+
+            </p>
+        </div>
+
+        <!-- WORK -->
+        <div class="section fade">
+            <h2>Work Experience (NFTs)</h2>
+            <div class="work-grid">
+
+                <!-- BION -->
+                <div class="card flip-card">
+                    <div class="flip-inner">
+
+                        <div class="flip-front">
+                            <img src="bionlogo.jpg">
+                            <h3>Bion</h3>
+                            <p>Legendary NFT</p>
+                        </div>
+
+                        <div class="flip-back">
+                            <p>Earned via Web3 Shopping</p>
+
+                            <div class="proof-container">
+                                <button onclick="toggleProof(this, 'bion.png')">Mint Proof</button>
+                                <div class="proof-popup">
+                                    <img class="proof-img" src="">
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <!-- COINDCX -->
+                <div class="card flip-card">
+                    <div class="flip-inner">
+
+                        <div class="flip-front">
+                            <img src="logocdx.png">
+                            <h3>CoinDCX</h3>
+                            <p>Epic NFT</p>
+                        </div>
+
+                        <div class="flip-back">
+                            <p>Community Contribution</p>
+
+                            <div class="proof-container">
+                                <button onclick="toggleProof(this, 'maxis.png')">Mint Proof</button>
+                                <div class="proof-popup">
+                                    <img class="proof-img" src="">
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <!-- NODEOPS -->
+                <div class="card flip-card">
+                    <div class="flip-inner">
+
+                        <div class="flip-front">
+                            <img src="logonodeops.png">
+                            <h3>NodeOps</h3>
+                            <p>Rare NFT</p>
+                        </div>
+
+                        <div class="flip-back">
+                            <p>Infrastructure Participation</p>
+
+                            <div class="proof-container">
+                                <button onclick="toggleProof(this, 'nrnproof.png')">Mint Proof</button>
+                                <div class="proof-popup">
+                                    <img class="proof-img" src="">
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <!-- CHILIZ -->
+                <div class="card flip-card">
+                    <div class="flip-inner">
+
+                        <div class="flip-front">
+                            <img src="chiliz.png">
+                            <h3>Chiliz</h3>
+                            <p>SportFi NFT</p>
+                        </div>
+
+                        <div class="flip-back">
+                            <p>Fan Token Ecosystem</p>
+
+                            <div class="proof-container">
+                                <button onclick="toggleProof(this, 'chilizproof.png')">Mint Proof</button>
+                                <div class="proof-popup">
+                                    <img class="proof-img" src="">
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <!-- NRN -->
+                <div class="card flip-card">
+                    <div class="flip-inner">
+
+                        <div class="flip-front">
+                            <img src="nrn.png">
+                            <h3>NRN</h3>
+                            <p>Onchain Proof</p>
+                        </div>
+
+                        <div class="flip-back">
+                            <p>Verified Participation</p>
+
+                            <div class="proof-container">
+                                <button onclick="toggleProof(this, 'nrnproof.png')">Mint Proof</button>
+                                <div class="proof-popup">
+                                    <img class="proof-img" src="">
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <!-- SVERSE -->
+                <div class="card flip-card">
+                    <div class="flip-inner">
+
+                        <div class="flip-front">
+                            <img src="sverse.png">
+                            <h3>Sverse</h3>
+                            <p>Metaverse NFT</p>
+                        </div>
+
+                        <div class="flip-back">
+                            <p>Virtual Experience</p>
+
+                            <div class="proof-container">
+                                <button onclick="toggleProof(this, 'sverseproof.png')">Mint Proof</button>
+                                <div class="proof-popup">
+                                    <img class="proof-img" src="">
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- TOOLS -->
+            <div class="section fade">
+                <h2>Tools</h2>
+                <div class="tools-grid">
+                    <div class="card"><img src="html.png">
+                        <p>HTML</p>
+                    </div>
+                    <div class="card"><img src="css.png">
+                        <p>CSS</p>
+                    </div>
+                    <div class="card"><img src="js.png">
+                        <p>JavaScript</p>
+                    </div>
+                    <div class="card"><img src="chatgpt.png">
+                        <p>ChatGPT</p>
+                    </div>
+                    <div class="card"><img src="canva.png">
+                        <p>Canva</p>
+                    </div>
+                    <div class="card"><img src="capcut.png">
+                        <p>CapCut</p>
+                    </div>
+                    <div class="card"><img src="photoshop.png">
+                        <p>Photoshop</p>
+                    </div>
+                    <div class="card"><img src="tradingview.png">
+                        <p>TradingView</p>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- WEB3 STACK SECTION -->
+            <div class="section fade">
+                <h2>Web3</h2>
+
+                <div class="web3-grid">
+
+                    <!-- WEB3 STACK -->
+                    <div class="web3-card">
+                        <h3>Web3 Stack</h3>
+                        <p class="tool-list">MetaMask • TON • Ethereum • Solana</p>
+
+                        <div class="tool-logos">
+                            <img src="metamask-logo-removebg-preview.png">
+                            <img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/ton.svg">
+                            <img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/ethereum.svg">
+                            <img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/solana.svg">
+                        </div>
+                    </div>
+                    <!-- DEVELOPMENT -->
+                    <div class="web3-card">
+                        <h3>Development</h3>
+                        <p class="tool-list">Ethers.js • Web3.js • TON SDK</p>
+
+                        <div class="tool-logos">
+                            <img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/javascript.svg">
+                            <img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/web3dotjs.svg">
+                            <img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/ton.svg">
+                        </div>
+                    </div>
+
+                    <!-- NFT INFRA -->
+                    <div class="web3-card">
+                        <h3>NFT Infra</h3>
+                        <p class="tool-list">OpenSea • Magic Eden • IPFS • Pinata</p>
+
+                        <div class="tool-logos">
+                            <img src="https://freelogopng.com/images/all_img/1681980153OpenSea-icon-png.png">
+                            <img src="Magic-Eden-Symbol-PNG-thumb-removebg-preview.png">
+                            <img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/ipfs.svg">
+                            <img src="Screenshot_2026-04-30-00-22-09-92_96b26121e545231a3c569311a54cda96.png">
+                        </div>
+                    </div>
+
+                    <!-- ANALYTICS -->
+                    <div class="web3-card">
+                        <h3>Analytics</h3>
+                        <p class="tool-list">Dune • Nansen • Arkham</p>
+
+                        <div class="tool-logos">
+                            <img src="dune.png">
+                            <img src="nasen.png">
+                            <img src="arkamms.png">
+                        </div>
+                    </div>
+
+                    <!-- COMMUNITY -->
+                    <div class="web3-card">
+                        <h3>Community</h3>
+                        <p class="tool-list">
+                            Twitter • Discord • Telegram
+                        </p>
+
+                        <div class="tool-logos">
+                            <img src="twitter.png">
+                            <img src="discord.png">
+                            <img src="telegram.png">
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- KEY STRENGTHS -->
+                <div class="section fade">
+                    <h2>Key Strengths</h2>
+                    <div class="grid">
+                        <div class="card wide"><b>Crypto Understanding</b><br>Deep knowledge of Web3 trends and
+                            ecosystems
+                        </div>
+                        <div class="card wide"><b>Content Simplification</b><br>Explain complex topics in simple
+                            format
+                        </div>
+                        <div class="card wide"><b>Consistency</b><br>Regular content creation and engagement
+                        </div>
+                        <div class="card wide"><b>Adaptability</b><br>Quick learner in fast-changing Web3 space
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SKILLS -->
+                <div class="section fade">
+                    <h2>Skills</h2>
+                    <div class="grid">
+                        <div class="card">Crypto & Web3 Knowledge</div>
+                        <div class="card">Content Creation (Threads + Video)</div>
+                        <div class="card">Community Engagement</div>
+                        <div class="card">AI Data Annotation</div>
+                        <div class="card">Basic Trading</div>
+                        <div class="card">Communication (EN / HI / BN)</div>
+                    </div>
+                </div>
+
+                <!-- EDUCATION -->
+                <div class="section fade">
+                    <h2>Education</h2>
+                    <div class="card wide">
+                        Bachelor’s Degree in Arts (2017–2021) - Burdwan University
+                    </div>
+                </div>
+
+                <!-- CONTENT (X VIDEO) -->
+                <div class="section fade">
+                    <h2>Content</h2>
+
+                    <div style="display:flex; gap:20px; flex-wrap:wrap; justify-content:center;">
+
+                        <!-- VIDEO 1 -->
+                        <div class="card" style="width:300px;">
+                            <video src="video1.mp4" autoplay muted loop playsinline controls
+                                style="width:100%; border-radius:10px;"></video>
+                            <p style="margin-top:10px;">Stablecoin Real Life Uses</p>
+                        </div>
+
+                        <!-- VIDEO 2 -->
+                        <div class="card" style="width:300px;">
+                            <video src="video2.mp4" autoplay muted loop playsinline controls
+                                style="width:100%; border-radius:10px;"></video>
+                            <p style="margin-top:10px;">Hardware Wallet's Importance</p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- CONTACT -->
+                <div class="section fade">
+                    <h2>Contact</h2>
+                    <div class="contact-grid">
+                        <div class="card"><img src="gmail.png">
+                            <p>arupmahara45@gmail.com</p>
+                        </div>
+                        <div class="card"><img src="twitter.png">
+                            <p>@imarup45</p>
+                        </div>
+                        <div class="card"><img src="telegram.png">
+                            <p>@Arup3302</p>
+                        </div>
+                        <div class="card"><img src="discord.png">
+                            <p>_exper1ment_3564</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- MODAL -->
+            <div id="modal" class="modal">
+                <div class="modal-content">
+
+                    <!-- Close Button -->
+                    <button class="close-btn" onclick="closeModal()">×</button>
+
+                    <!-- Image -->
+                    <img id="proofImg">
+
+                    <!-- Optional text -->
+                    <p class="proof-info">
+                        TON Blockchain • Verified Transaction ✅
+                    </p>
+
+                </div>
+            </div>
+            <script>
+
+                function connectWallet() {
+                    document.querySelector(".wallet-screen").style.display = "none";
+                    document.querySelector(".app").style.display = "block";
+                }
+
+                /* typing */
+                let text = "AI Data Annotator | Web3 Content Creator | AMA Speaker";
+                let i = 0;
+                function type() {
+                    if (i < text.length) {
+                        document.getElementById("typing").innerHTML += text.charAt(i);
+                        i++;
+                        setTimeout(type, 40);
+                    }
+                }
+                type();
+
+                /* scroll */
+                const faders = document.querySelectorAll('.fade');
+                window.addEventListener('scroll', () => {
+                    const trigger = window.innerHeight * 0.85;
+                    faders.forEach(el => {
+                        if (el.getBoundingClientRect().top < trigger) {
+                            el.classList.add('show');
+                        }
+                    });
+                });
+
+                /* PROOF FIX */
+                function toggleProof(btn, img) {
+                    const popup = btn.parentElement.querySelector(".proof-popup");
+                    const image = popup.querySelector(".proof-img");
+
+                    // sab band karo (clean UX)
+                    document.querySelectorAll(".proof-popup").forEach(p => p.style.display = "none");
+
+                    if (popup.style.display === "block") {
+                        popup.style.display = "none";
+                    } else {
+                        image.src = img;
+                        popup.style.display = "block";
+                    }
+                }
+
+            </script>
+
+
+            <script>
+                const glow = document.querySelector(".cursor-glow");
+
+                document.addEventListener("mousemove", (e) => {
+                    glow.style.left = e.clientX + "px";
+                    glow.style.top = e.clientY + "px";
+                });
+
+                // 👇 YEH ADD KAR
+                function showProof(img) {
+                    document.getElementById("modal").style.display = "flex";
+                    document.getElementById("proofImg").src = img;
+                }
+
+                function closeModal() {
+                    document.getElementById("modal").style.display = "none";
+                }
+
+                document.getElementById("modal").addEventListener("click", function (e) {
+                    if (e.target === this) {
+                        closeModal();
+                    }
+                });
+            </script>
+
+
+        </div> <!-- app end -->
+
+
+
+
+</body>
+
+</html>
+
+</body>
+
+</html>
